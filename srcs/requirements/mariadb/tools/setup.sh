@@ -1,7 +1,9 @@
 #!/bin/sh
 
 if [ ! -d "/var/lib/mysql/$MYSQL_DB" ]; then
-	mysqld --bootstrap << EOF
+  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+  mysql_install_db --datadir=/var/lib/mysql --auth-root-authentication-method=normal >/dev/null
+  mysqld --bootstrap << EOF
 use mysql;
 
 flush privileges;
@@ -16,4 +18,4 @@ flush privileges;
 EOF
 fi
 
-exec mysqld
+exec mysqld --datadir=/var/lib/mysql
